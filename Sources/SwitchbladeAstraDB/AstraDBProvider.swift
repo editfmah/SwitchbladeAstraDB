@@ -324,6 +324,9 @@ public class AstraDBProvider: DataProvider {
         }
     }
     
+    let lock = Mutex()
+    var queriesLog: [String:Int] = [:]
+    
     private func queryCQL<T: Codable>(_ cqlQuery: String) -> [T] {
         var request = URLRequest(url: astraDBURL)
         request.httpMethod = "POST"
@@ -332,6 +335,15 @@ public class AstraDBProvider: DataProvider {
         request.httpBody = cqlQuery.data(using: .utf8)
         
         let (data, response, error) = URLSession.shared.synchronousDataTask(with: request)
+        
+        lock.mutex {
+            if let current = queriesLog[cqlQuery] {
+                queriesLog[cqlQuery] = (current + 1)
+            } else {
+                queriesLog[cqlQuery] = 1
+            }
+            print(queriesLog)
+        }
         
         if let error = error {
             print("Error executing CQL: \(error)")
