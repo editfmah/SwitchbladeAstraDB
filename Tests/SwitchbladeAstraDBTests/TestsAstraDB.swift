@@ -81,7 +81,7 @@ public class PersonFilterable : Codable, Filterable, Identifiable, KeyspaceIdent
     
 }
 
-func initAstraDBDatabase(_ config: SwitchbladeConfig? = nil) -> Switchblade {
+func initDB(_ config: SwitchbladeConfig? = nil) -> Switchblade {
     
     if db == nil {
         
@@ -104,7 +104,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistObject() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -131,7 +131,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistObject1k() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         
         var partitions: [String] = []
         var lock = Mutex()
@@ -178,7 +178,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistQueryObject() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -200,7 +200,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistSingleObjectAndCheckAll() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -221,7 +221,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleObjectsAndCheckAll() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -251,7 +251,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleObjectsAndFilterAll() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -280,7 +280,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleObjectsAndQuery() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -316,7 +316,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleObjectsAndQueryMultipleParams() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -352,7 +352,7 @@ extension SwitchbladePostgresTests {
 
     func testQueryParamEqualls() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -383,7 +383,7 @@ extension SwitchbladePostgresTests {
     
     func testQueryParamGreaterThan() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -412,7 +412,7 @@ extension SwitchbladePostgresTests {
     
     func testQueryParamLessThan() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -444,7 +444,7 @@ extension SwitchbladePostgresTests {
     
     func testQueryParamIsNull() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -501,7 +501,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistObjectCompositeKey() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -528,7 +528,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistQueryObjectCompositeKey() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -552,7 +552,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleIterate() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -585,7 +585,7 @@ extension SwitchbladePostgresTests {
     
     func testPersistMultipleIterateInspect() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -620,7 +620,7 @@ extension SwitchbladePostgresTests {
     
     func testTTLTimeout() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         let partition = "\(UUID().uuidString.lowercased().prefix(8))"
         
         let p1 = Person()
@@ -655,7 +655,7 @@ extension SwitchbladePostgresTests {
     
     func testObjectMigration() {
         
-        let db = initAstraDBDatabase()
+        let db = initDB()
         
         let id = UUID()
         
@@ -693,7 +693,7 @@ extension SwitchbladePostgresTests {
     
     func testFilter() {
 
-        let db = initAstraDBDatabase()
+        let db = initDB()
 
         let p1 = Person()
         p1.Name = "Adrian Herridge"
@@ -721,7 +721,7 @@ extension SwitchbladePostgresTests {
 
     func testFilterMultiple() {
 
-        let db = initAstraDBDatabase()
+        let db = initDB()
 
         let p1 = Person()
         p1.Name = "Adrian Herridge"
@@ -749,7 +749,7 @@ extension SwitchbladePostgresTests {
 
     func testFilterMultipleAND() {
 
-        let db = initAstraDBDatabase()
+        let db = initDB()
 
         let p1 = Person()
         p1.Name = "Adrian Herridge"
@@ -777,7 +777,7 @@ extension SwitchbladePostgresTests {
 
     func testFilterMultipleNegative() {
 
-        let db = initAstraDBDatabase()
+        let db = initDB()
 
         let p1 = Person()
         p1.Name = "Adrian Herridge"
@@ -805,7 +805,7 @@ extension SwitchbladePostgresTests {
 
     func testFilterProtocolConformance() {
 
-        let db = initAstraDBDatabase()
+        let db = initDB()
 
         let p1 = PersonFilterable()
         p1.Name = "Adrian Herridge"
